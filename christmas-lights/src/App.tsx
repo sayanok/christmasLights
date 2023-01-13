@@ -3,10 +3,11 @@ import React, { useState } from "react";
 const App: React.FC = () => {
   const [status, setStatus] = useState("off");
   const [animation, setAnimation] = useState("");
+  const [interval, setInterval] = useState<number>();
 
   function onClickHandler(value: string): void {
     if (value === "on") {
-      setAnimation("flash 1.5s infinite");
+      setAnimation("flash " + interval + "s infinite");
     } else {
       setAnimation("");
     }
@@ -39,7 +40,16 @@ const App: React.FC = () => {
         <button onClick={() => onClickHandler("on")}>on</button>
         <button onClick={() => onClickHandler("off")}>off</button>
       </p>
-      <p>明滅の間隔</p>
+      <form>
+        <p>
+          <input
+            type={"number"}
+            value={interval}
+            onChange={(e) => setAnimation("flash " + Number(e.target.value) + "s infinite")}
+          ></input>
+          sec
+        </p>
+      </form>
     </>
   );
 };
